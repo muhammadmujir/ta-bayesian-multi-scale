@@ -78,6 +78,9 @@ class Crowd(data.Dataset):
         assert len(keypoints) > 0
         i, j, h, w = random_crop(ht, wd, self.c_size, self.c_size)
         img = F.crop(img, i, j, h, w)
+        # Clip (limit) the values in an array.
+        # numpy.clip(a, a_min, a_max, out=None, **kwargs)
+        # An array with the elements of a, but where values < a_min are replaced with a_min, and those > a_max with a_max.
         nearest_dis = np.clip(keypoints[:, 2], 4.0, 128.0)
 
         points_left_up = keypoints[:, :2] - nearest_dis[:, None] / 2.0

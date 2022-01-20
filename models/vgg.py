@@ -4,6 +4,7 @@ import torch
 from torch.nn import functional as F
 
 __all__ = ['vgg19']
+# https://stackoverflow.com/questions/44834/can-someone-explain-all-in-python
 model_urls = {
     'vgg19': 'https://download.pytorch.org/models/vgg19-dcbb9e9d.pth',
 }
