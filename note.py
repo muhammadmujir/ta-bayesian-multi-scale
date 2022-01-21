@@ -42,3 +42,15 @@ np.clip(a, 8, 1)
 np.clip(a, 3, 6, out=a)
 a = np.arange(10)
 np.clip(a, [3, 4, 1, 1, 1, 4, 4, 4, 4, 4], 8)
+
+# =======================================================
+# import mat file than save as npy file
+# 
+import scipy.io as io
+import numpy as np
+
+mat = io.loadmat("C:\\Users\\Admin\\Desktop\\data\\TA\\Projek\\Dataset\\ShanghaiTech\\part_B\\test_data\\ground-truth\\GT_IMG_1.mat")
+annotations = np.array(mat['image_info'][0][0][0][0][0])
+savePath = "C:\\Users\\Admin\\Desktop\\data\\TA\\Projek\\Dataset\\Coba\\val\\IMG_1"
+np.save(savePath, np.array(annotations))
+print(np.load(savePath+".npy"))

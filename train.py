@@ -6,11 +6,16 @@ args = None
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train ')
-    parser.add_argument('--data-dir', default='/home/teddy/UCF-Train-Val-Test',
-                        help='training data directory')
-    parser.add_argument('--save-dir', default='/home/teddy/vgg',
-                        help='directory to save models.')
+    # parser.add_argument('--data-dir', default='/home/teddy/UCF-Train-Val-Test',
+    #                     help='training data directory')
+    # parser.add_argument('--save-dir', default='/home/teddy/vgg',
+    #                     help='directory to save models.')
 
+    parser.add_argument('--data-dir', default='C:/Users/Admin/Desktop/data/TA/Projek/Dataset/Coba',
+                    help='training data directory')
+    parser.add_argument('--save-dir', default='C:/Users/Admin/Desktop/data/TA/Projek/Dataset/Coba/result',
+                    help='directory to save models.')
+    
     parser.add_argument('--lr', type=float, default=1e-5,
                         help='the initial learning rate')
     parser.add_argument('--weight-decay', type=float, default=1e-4,

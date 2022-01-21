@@ -62,6 +62,9 @@ class Crowd(data.Dataset):
         gd_path = img_path.replace('jpg', 'npy')
         img = Image.open(img_path).convert('RGB')
         if self.method == 'train':
+            # numpy.load(file, mmap_mode=None, allow_pickle=False, fix_imports=True, encoding='ASCII')[source]
+            # Load arrays or pickled objects from .npy, .npz or pickled files.
+            # resul: tarray, tuple, dict, etc.
             keypoints = np.load(gd_path)
             return self.train_transform(img, keypoints)
         elif self.method == 'val':
