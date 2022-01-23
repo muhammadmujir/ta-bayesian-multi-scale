@@ -12,6 +12,7 @@ import numpy as np
 def random_crop(im_h, im_w, crop_h, crop_w):
     res_h = im_h - crop_h
     res_w = im_w - crop_w
+    # randint() method returns an integer number selected element from the specified range.
     i = random.randint(0, res_h)
     j = random.randint(0, res_w)
     return i, j, crop_h, crop_w
@@ -79,23 +80,37 @@ class Crowd(data.Dataset):
         st_size = min(wd, ht)
         assert st_size >= self.c_size
         assert len(keypoints) > 0
+        # i -> Vertical component of the top left corner of the crop box (vertical starting point).
+        # j -> Horizontal component of the top left corner of the crop box (horizontal starting point).
+        # h -> Height of the crop box
+        # w -> Width of the crop bo
         i, j, h, w = random_crop(ht, wd, self.c_size, self.c_size)
         img = F.crop(img, i, j, h, w)
         # Clip (limit) the values in an array.
         # numpy.clip(a, a_min, a_max, out=None, **kwargs)
         # An array with the elements of a, but where values < a_min are replaced with a_min, and those > a_max with a_max.
         nearest_dis = np.clip(keypoints[:, 2], 4.0, 128.0)
-
+        
+        # keypoints[:, :2] -> all keypoints
         points_left_up = keypoints[:, :2] - nearest_dis[:, None] / 2.0
         points_right_down = keypoints[:, :2] + nearest_dis[:, None] / 2.0
+        
+        # numpy.concatenate((a1, a2, ...), axis=0, out=None, dtype=None, casting="same_kind")
+        # Join a sequence of arrays along an existing axis
+        # axis 0 -> outer axis, axis 1 -> inner of outer axis, axis 2 -> inner of inner axis 
+        # bbox becomes (n,4)
         bbox = np.concatenate((points_left_up, points_right_down), axis=1)
+        # cal_inner_area returns 1D array
         inner_area = cal_innner_area(j, i, j+w, i+h, bbox)
+        # origin area is 1D array
         origin_area = nearest_dis * nearest_dis
         ratio = np.clip(1.0 * inner_area / origin_area, 0.0, 1.0)
         mask = (ratio >= 0.3)
 
         target = ratio[mask]
         keypoints = keypoints[mask]
+        # i -> Vertical component of the top left corner of the crop box (vertical starting point).
+        # j -> Horizontal component of the top left corner of the crop box (horizontal starting point).
         keypoints = keypoints[:, :2] - [j, i]  # change coodinate
         if len(keypoints) > 0:
             if random.random() > 0.5:

@@ -97,6 +97,10 @@ class RegTrainer(Trainer):
         self.model.train()  # Set model to training mode
 
         # Iterate over data.
+        # inputs -> transformed image
+        # points -> head anotation position after transformation
+        # targets -> 
+        # st_size -> minimum image dimension (width or height)
         for step, (inputs, points, targets, st_sizes) in enumerate(self.dataloaders['train']):
             inputs = inputs.to(self.device)
             st_sizes = st_sizes.to(self.device)
