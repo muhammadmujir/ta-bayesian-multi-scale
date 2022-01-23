@@ -11,9 +11,9 @@ def parse_args():
     # parser.add_argument('--save-dir', default='/home/teddy/vgg',
     #                     help='directory to save models.')
 
-    parser.add_argument('--data-dir', default='drive/MyDrive/Projek Akhir/dataset/Coba',
+    parser.add_argument('--data-dir', default='/content/drive/MyDrive/Projek Akhir/dataset/Coba',
                     help='training data directory')
-    parser.add_argument('--save-dir', default='drive/MyDrive/Projek Akhir/dataset/Coba/result',
+    parser.add_argument('--save-dir', default='/content/drive/MyDrive/Projek Akhir/dataset/Coba/result',
                     help='directory to save models.')
     
     parser.add_argument('--lr', type=float, default=1e-5,
